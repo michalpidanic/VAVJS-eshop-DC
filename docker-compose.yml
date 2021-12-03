@@ -17,3 +17,24 @@ services:
       - ./db:/docker-entrypoint-initdb.d/
     ports:
       - 5432:5432
+
+  server:
+    image: eshop-server:latest
+    environment:
+      - DB_HOST=postgres
+      - DB_NAME=postgres
+      - DB_USERNAME=root
+      - DB_PASSWORD=password
+      - NODE_ENV=docker
+    ports:
+      - 8000:8000
+    depends_on:
+      - postgres
+
+  # client:
+  #   image: eshop-client:latest
+  #   container_name: eshop-client
+  #   ports:
+  #     - 4200:4200
+  #   depends_on:
+  #     - server
